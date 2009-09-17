@@ -90,8 +90,8 @@ class batcache {
 			'version' => $this->url_version
 		);
 
-		if ( function_exists( 'apache_response_headers' ) ) {
-			$cache['headers'] = apache_response_headers();
+		if ( function_exists( 'headers_list' ) ) {
+			$cache['headers'] = headers_list();
 			if ( !empty( $this->uncached_headers ) ) foreach ( $cache['headers'] as $header => $value ) {
 				if ( in_array( strtolower( $header ), $this->uncached_headers ) )
 					unset( $cache['headers'][$header] );
