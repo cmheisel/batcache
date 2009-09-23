@@ -88,7 +88,7 @@ class batcache {
 			'timer' => $this->timer_stop(false, 3),
 			'status_header' => $this->status_header,
 			'version' => $this->url_version,
-			'header' => array()
+			'headers' => array()
 		);
 
 		if ( function_exists( 'headers_list' ) ) {
