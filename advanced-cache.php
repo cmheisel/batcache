@@ -87,14 +87,16 @@ class batcache {
 			'time' => time(),
 			'timer' => $this->timer_stop(false, 3),
 			'status_header' => $this->status_header,
-			'version' => $this->url_version
+			'version' => $this->url_version,
+			'header' => array()
 		);
 
 		if ( function_exists( 'headers_list' ) ) {
-			$cache['headers'] = headers_list();
-			if ( !empty( $this->uncached_headers ) ) foreach ( $cache['headers'] as $header => $value ) {
-				if ( in_array( strtolower( $header ), $this->uncached_headers ) )
-					unset( $cache['headers'][$header] );
+			foreach( headers_list() as $header ) { 
+				list($header, $value) = explode(":", $header, 2);
+
+				if( !in_array( strtolower($header), $this->uncached_headers) )
+					$cache['headers'][$header] = $value;
 			}
 		}
 
